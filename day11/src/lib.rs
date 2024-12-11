@@ -6,12 +6,12 @@ use winnow::{
     PResult, Parser,
 };
 
-fn _parse_input(input: &mut &str) -> PResult<Vec<u64>> {
+fn parse_input(input: &mut &str) -> PResult<Vec<u64>> {
     repeat(1.., terminated(digit1.parse_to::<u64>(), alt((" ", "\n")))).parse_next(input)
 }
 
 pub fn solve(input: String, mut iterations: u64) -> u64 {
-    let numbers = _parse_input.parse_next(&mut input.as_str()).unwrap();
+    let numbers = parse_input.parse_next(&mut input.as_str()).unwrap();
     let mut map: HashMap<u64, u64> = HashMap::new();
     for n in numbers {
         *map.entry(n).or_default() += 1;
