@@ -1,0 +1,9 @@
+# vim: set ft=make :
+test prog:
+	cargo run --bin {{prog}}
+
+real prog:
+	REAL=1 cargo run --bin {{prog}}
+
+release prog:
+	REAL=1 cargo run --bin {{prog}} --release

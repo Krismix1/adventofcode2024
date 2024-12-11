@@ -1,0 +1,15 @@
+[package]
+name = "aoc"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+winnow = "0.6.20"
+
+[[bin]]
+name = "p1"
+path = "bin/p1.rs"
+
+[[bin]]
+name = "p2"
+path = "bin/p2.rs"
