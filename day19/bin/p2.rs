@@ -3,30 +3,21 @@ use std::collections::HashMap;
 use aoc::get_input;
 
 fn count(patterns: &[String], design: &str, cache: &mut HashMap<String, u64>) -> u64 {
+    if design.is_empty() {
+        return 1;
+    }
     if let Some(h) = cache.get(design) {
         return *h;
     }
-    let mut prefixes = vec![];
+    let n = patterns
+        .iter()
+        .filter(|pattern| design.starts_with(*pattern))
+        .map(|pattern| count(patterns, &design[pattern.len()..], cache))
+        .sum();
 
-    for patt in patterns {
-        if design.starts_with(patt) {
-            prefixes.push((patt, design.strip_prefix(patt).unwrap()));
-        }
-    }
+    cache.insert(design.to_string(), n);
 
-    let mut sum = 0;
-
-    for (_, suffix) in prefixes {
-        if suffix.is_empty() {
-            sum += 1;
-        } else {
-            sum += count(patterns, suffix, cache);
-        }
-    }
-
-    cache.insert(design.to_string(), sum);
-
-    sum
+    n
 }
 
 fn parse_input(input: &str) -> (Vec<String>, Vec<String>) {
